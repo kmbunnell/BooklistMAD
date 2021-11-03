@@ -5,9 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface BookLookUpService {
-    @GET("books/v1/volumes?printType=BOOKS&orderBy=newest&maxResults=20&projection=lite")
+    @GET("books/v1/volumes?printType=BOOKS&orderBy=newest&projection=lite")
     suspend fun getBooksByTitle(
         @Query("q") title: String,
-        @Query("startIndex")start:Int): BookResponse
+        @Query("startIndex")start:Int,
+        @Query("maxResults") maxResults:Int): BookResponse
 
 }

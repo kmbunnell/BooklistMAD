@@ -12,10 +12,10 @@ class BookRepository @Inject constructor(
     private val api:BookLookUpService
 )
 {
-    suspend fun getBookListByTitle(title: String, startIdx:Int): Resource<BookResponse>
+    suspend fun getBookListByTitle(title: String, startIdx:Int, max:Int): Resource<BookResponse>
     {
         val response= try{
-            api.getBooksByTitle(title, startIdx)
+            api.getBooksByTitle(title, startIdx, max)
         }
         catch(e:Exception)
         {

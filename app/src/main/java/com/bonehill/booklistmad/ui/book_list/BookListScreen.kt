@@ -3,6 +3,8 @@ package com.bonehill.booklistmad.ui.book_list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Button
@@ -19,13 +21,17 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.bonehill.booklistmad.ui.composables.BookItem
 
 
 @Composable
 fun BookListScreen(
 ){
-   Surface(
+
+    Surface(
         color= MaterialTheme.colors.background,
        modifier = Modifier.fillMaxSize()
    ){
@@ -37,66 +43,34 @@ fun BookListScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             )
-            {
-                //viewmodel do search
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = {/*todo*/}, modifier = Modifier
-                .shadow(5.dp, CircleShape)
-                .background(Color.White, CircleShape)
-                .align(Alignment.End)){
-                Text(text = "Search")
 
-            }
+
+
+
+            Spacer(modifier = Modifier.height(8.dp))
+            BookList()
         }
 
     }
 }
+
 
 @Composable
-fun SearchBar(
-    modifier: Modifier=Modifier,
-    hint:String="",
-    onSearch:(String)->Unit={}
-
-){
-    var text by remember{
-        mutableStateOf("")
-
-    }
-    var isHintDisplayed by remember{
-        mutableStateOf(hint!="")
-    }
-
-    Box(modifier=modifier){
-        BasicTextField(
-            value=text,
-            onValueChange = {
-                text=it
-                //onSearch(it)
-            },
-            maxLines = 1,
-            singleLine = true,
-            textStyle = TextStyle(color = Color.Black),
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(5.dp, CircleShape)
-                .background(Color.White, CircleShape)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
-                .onFocusChanged {
-                    isHintDisplayed = !it.isFocused
-                }
-        )
-        if(isHintDisplayed)
-        {
-            Text(
-                text=hint,
-                color=Color.LightGray,
-                modifier = Modifier
-                    .padding(horizontal=20.dp, vertical = 12.dp)
-            )
-        }
-
-
+fun BookList(viewModel: BookListScreenViewModel = viewModel()) {
+    val bookList by remember { viewModel.bookList }
+    val endReached by remember { viewModel.endReached }
+    val loadError by remember { viewModel.loadError }
+    val isLoading by remember { viewModel.isLoading }
+    
+    LazyColumn(contentPadding = PaddingValues( 16.dp)){
+         items(bookList.size){
+            if(it >= bookList.size - 1 && !endReached)
+            {
+                viewModel.loadPagedBooks()
+            }
+             BookItem(bookList[it])
+         }
     }
 }
+
+
