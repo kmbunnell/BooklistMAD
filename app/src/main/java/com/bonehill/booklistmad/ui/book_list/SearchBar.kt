@@ -53,8 +53,11 @@ fun SearchBar(
 
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(
-            onDone = { viewModel.loadPagedBooks()
-                        focusManager.clearFocus()}
+            onDone = {
+                focusManager.clearFocus()
+                viewModel.setSearchText(text)
+                viewModel.loadPagedBooks()
+            }
         ),
         onValueChange = { text = it },
         maxLines = 1,

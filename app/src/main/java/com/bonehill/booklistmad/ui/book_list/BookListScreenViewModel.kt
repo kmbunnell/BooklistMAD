@@ -21,14 +21,17 @@ class BookListScreenViewModel @Inject constructor(
     var loadError = mutableStateOf("")
     var isLoading = mutableStateOf(false)
     var endReached = mutableStateOf(false)
+    var searchText= mutableStateOf("")
 
-
+    fun setSearchText(text:String)
+    {
+        searchText.value=text
+    }
     fun loadPagedBooks()
     {
         isLoading.value=true
         viewModelScope.launch {
-            val result=repository.getBookListByTitle("Roses", currentPage* PAGE_SIZE, PAGE_SIZE )
-            when(result)
+            when(val result=repository.getBookListByTitle( searchText.value, currentPage* PAGE_SIZE, PAGE_SIZE ))
             {
                 is Resource.Success -> {
                     endReached.value = currentPage * PAGE_SIZE >= result.data.totalItems
