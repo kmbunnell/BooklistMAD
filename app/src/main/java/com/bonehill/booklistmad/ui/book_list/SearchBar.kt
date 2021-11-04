@@ -10,19 +10,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.focusModifier
+
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+
 
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
     hint:String="",
-    //viewModel: BookListScreenViewModel = viewModel()
-
+    viewModel: BookListScreenViewModel = hiltViewModel()
 ){
     var text by remember{
         mutableStateOf("")
@@ -65,7 +66,7 @@ fun SearchBar(
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = { /*viewModel.loadPagedBooks()*/}, modifier = Modifier
+            onClick = {viewModel.loadPagedBooks() }, modifier = Modifier
                 .shadow(5.dp, CircleShape)
                 .background(Color.White, CircleShape)
                 .align(Alignment.End)

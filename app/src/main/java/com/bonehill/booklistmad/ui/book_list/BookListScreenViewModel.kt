@@ -22,6 +22,7 @@ class BookListScreenViewModel @Inject constructor(
     var isLoading = mutableStateOf(false)
     var endReached = mutableStateOf(false)
 
+
     fun loadPagedBooks()
     {
         isLoading.value=true
@@ -30,16 +31,16 @@ class BookListScreenViewModel @Inject constructor(
             when(result)
             {
                 is Resource.Success -> {
-                    endReached.value = currentPage * PAGE_SIZE >= result.data!!.totalItems
+                    endReached.value = currentPage * PAGE_SIZE >= result.data.totalItems
                     bookList.value += result.data.items
 
-                    currentPage++;
+                    currentPage++
                     loadError.value=""
                     isLoading.value=false
                 }
 
                 is Resource.Failed -> {
-                    loadError.value=result.message!!
+                    loadError.value=result.message
                     isLoading.value=false
                 }
             }
