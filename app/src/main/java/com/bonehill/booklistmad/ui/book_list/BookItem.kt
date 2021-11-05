@@ -2,6 +2,8 @@ package com.bonehill.booklistmad.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +25,7 @@ fun BookItem(
     {
         Image(
             painter = rememberImagePainter(
-                data=item.volumeInfo.imageLinks?.thumbnail,
+                data=item.volumeInfo.imageLinks?.thumbnail?.replace("http:", "https:"),
                 builder = {
                     crossfade(true)
                     placeholder(R.drawable.ic_baseline_image_24)
@@ -35,5 +37,6 @@ fun BookItem(
             modifier = Modifier.size(128.dp)
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
