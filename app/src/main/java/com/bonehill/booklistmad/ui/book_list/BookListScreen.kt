@@ -54,7 +54,7 @@ fun BookList(viewModel: BookListScreenViewModel = hiltViewModel()
     
     LazyColumn(contentPadding = PaddingValues( 16.dp)){
          items(bookList.size){
-            if(it >= bookList.size - 1 && !endReached)
+            if(it >= bookList.size - 1 && !endReached && !isLoading)
             {
                 viewModel.loadPagedBooks()
             }
