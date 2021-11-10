@@ -1,10 +1,11 @@
-package com.bonehill.booklistmad.data
+package com.bonehill.booklistmad.data.datasource
 
 import androidx.room.*
 import com.bonehill.booklistmad.data.entities.BookEntry
-import com.bonehill.booklistmad.data.entities.relations.BookTagCrossRef
+import com.bonehill.booklistmad.data.entities.BookTagCrossRef
 import com.bonehill.booklistmad.data.entities.relations.BookWithTags
 import com.bonehill.booklistmad.data.entities.relations.TagWithBooks
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
@@ -17,9 +18,9 @@ interface BookDao {
 
     @Transaction
     @Query ("SELECT * FROM BookEntry")
-    suspend fun getAllBooksWithTags(): List<BookWithTags>
+    fun getAllBooksWithTags(): Flow<List<BookWithTags>>
 
     @Transaction
     @Query ("SELECT * FROM Tag where tagId= :tagId")
-    suspend fun getBooksByTag(tagId: Byte): List<TagWithBooks>
+    fun getBooksByTag(tagId: Byte): Flow<List<TagWithBooks>>
 }

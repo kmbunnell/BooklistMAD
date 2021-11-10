@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bonehill.booklistmad.data.api.Book
-import com.bonehill.booklistmad.repository.BookRepository
-import com.bonehill.booklistmad.repository.Resource
+import com.bonehill.booklistmad.data.repository.BookRepository
+import com.bonehill.booklistmad.data.repository.Resource
 import com.bonehill.booklistmad.util.Constants.PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

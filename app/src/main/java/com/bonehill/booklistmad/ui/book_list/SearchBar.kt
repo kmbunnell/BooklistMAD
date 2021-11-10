@@ -35,7 +35,6 @@ import androidx.lifecycle.ViewModel
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    hint:String="",
     viewModel: BookListScreenViewModel = hiltViewModel()
 ) {
     var text by remember {

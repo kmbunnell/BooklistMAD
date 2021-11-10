@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.bonehill.booklistmad.data.entities.BookEntry
+import com.bonehill.booklistmad.data.entities.BookTagCrossRef
 import com.bonehill.booklistmad.data.entities.Tag
 
 data class TagWithBooks (

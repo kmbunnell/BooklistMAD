@@ -1,4 +1,4 @@
-package com.bonehill.booklistmad.repository
+package com.bonehill.booklistmad.data.repository
 
 sealed class Resource<T> {
     class Success<T>(val data: T) : Resource<T>()
