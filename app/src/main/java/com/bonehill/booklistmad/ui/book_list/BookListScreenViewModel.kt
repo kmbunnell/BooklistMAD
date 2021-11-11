@@ -4,6 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bonehill.booklistmad.data.api.Book
+import com.bonehill.booklistmad.data.datasource.BookDao
+import com.bonehill.booklistmad.data.entities.BookTagCrossRef
+import com.bonehill.booklistmad.data.entities.Tag
 import com.bonehill.booklistmad.data.repository.BookRepository
 import com.bonehill.booklistmad.data.repository.Resource
 import com.bonehill.booklistmad.util.Constants.PAGE_SIZE
@@ -18,6 +21,7 @@ class BookListScreenViewModel @Inject constructor(
 
     private var currentPage=0
     var bookList = mutableStateOf<List<Book>>(listOf())
+    var tagList = mutableStateOf<List<Tag>>(listOf())
     var loadError = mutableStateOf("")
     var isLoading = mutableStateOf(false)
     var endReached = mutableStateOf(false)
@@ -28,8 +32,15 @@ class BookListScreenViewModel @Inject constructor(
         searchText=text
     }
 
+    fun getTags(){
+        viewModelScope.launch {
+           // tagList.value = repository.getAllTags()
+        }
+    }
+
     fun loadPagedBooks()
     {
+
         isLoading.value=true
         viewModelScope.launch {
             when(val result=repository.getBookListByTitle( searchText, currentPage* PAGE_SIZE, PAGE_SIZE ))
@@ -49,5 +60,22 @@ class BookListScreenViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun deleteBookTag(bookId:Short, tagId:Byte)
+    {
+        val ref = BookTagCrossRef(bookId, tagId)
+
+       /* viewModelScope.launch {
+
+        }*/
+    }
+
+    fun createBookTag(bookId:Short, tagId:Byte)
+    {
+        /*val ref = BookTagCrossRef(bookId, tagId)
+        viewModelScope.launch {
+
+        }*/
     }
 }

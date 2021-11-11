@@ -11,13 +11,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.bonehill.booklistmad.R
 import com.bonehill.booklistmad.data.api.Book
+import com.bonehill.booklistmad.data.entities.Tag
 import com.bonehill.booklistmad.ui.book_list.BookListScreenViewModel
-
 
 
 @Composable
 fun BookItem(
     item: Book,
+    tags: List<Tag>?,
     modifier:Modifier=Modifier
     )
 {
@@ -38,5 +39,6 @@ fun BookItem(
         )
 
         Spacer(modifier = Modifier.height(8.dp))
+
     }
 }

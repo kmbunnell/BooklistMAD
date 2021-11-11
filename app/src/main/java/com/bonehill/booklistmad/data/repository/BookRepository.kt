@@ -36,7 +36,12 @@ class BookRepository @Inject constructor(
         dao.insertBookTagCrossRef(crossRef)
     }
 
+    suspend fun DeleteBookTag(crossRef: BookTagCrossRef){
+        dao.deleteBookTag(crossRef)
+    }
+
     fun getAllBooksWithTags() = dao.getAllBooksWithTags()
     fun getBooksByTag(tagId: Byte) =  dao.getBooksByTag(tagId)
 
+    fun getAllTags()=dao.getTags()
 }
