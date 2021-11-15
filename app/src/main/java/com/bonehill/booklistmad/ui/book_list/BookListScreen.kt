@@ -66,17 +66,17 @@ fun BookList(viewModel: BookListScreenViewModel = hiltViewModel()
                      viewModel.loadPagedBooks()
                  }
 
-                 BookItem(bookList[it], tagList)
+                 BookItem(bookList[it])
 
                  Spacer(modifier = Modifier.width(8.dp))
 
-                 TagSection(
+                 /*TagSection(
                      tags = tagList,
                      onCheckChange={ selected: Boolean, id: Byte ->
 
                      var k = selected
                      var d = id
-                 })
+                 })*/
              }
          }
     }

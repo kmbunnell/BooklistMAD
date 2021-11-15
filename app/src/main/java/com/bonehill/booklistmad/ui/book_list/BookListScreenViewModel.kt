@@ -1,16 +1,20 @@
 package com.bonehill.booklistmad.ui.book_list
 
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bonehill.booklistmad.data.api.Book
 import com.bonehill.booklistmad.data.datasource.BookDao
+import com.bonehill.booklistmad.data.entities.BookEntry
 import com.bonehill.booklistmad.data.entities.BookTagCrossRef
 import com.bonehill.booklistmad.data.entities.Tag
 import com.bonehill.booklistmad.data.repository.BookRepository
 import com.bonehill.booklistmad.data.repository.Resource
 import com.bonehill.booklistmad.util.Constants.PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,22 +25,24 @@ class BookListScreenViewModel @Inject constructor(
 
     private var currentPage=0
     var bookList = mutableStateOf<List<Book>>(listOf())
-    var tagList = mutableStateOf<List<Tag>>(listOf())
+    var tagList= mutableStateOf<List<Tag>>(listOf())
     var loadError = mutableStateOf("")
     var isLoading = mutableStateOf(false)
     var endReached = mutableStateOf(false)
     private var searchText:String = ""
+
 
     fun setSearchText(text:String)
     {
         searchText=text
     }
 
-    fun getTags(){
-        viewModelScope.launch {
-           // tagList.value = repository.getAllTags()
+   /* fun getTags(){
+        repository.getAllTags().onEach { tags->
+            tagList.value= tags
         }
-    }
+
+    }*/
 
     fun loadPagedBooks()
     {
@@ -52,6 +58,8 @@ class BookListScreenViewModel @Inject constructor(
                     currentPage++
                     loadError.value=""
                     isLoading.value=false
+
+                    repository.InsertBook(BookEntry(0, "stuff", "url_madeup"))
                 }
 
                 is Resource.Failed -> {

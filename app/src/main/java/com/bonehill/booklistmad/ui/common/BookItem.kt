@@ -18,7 +18,6 @@ import com.bonehill.booklistmad.ui.book_list.BookListScreenViewModel
 @Composable
 fun BookItem(
     item: Book,
-    tags: List<Tag>?,
     modifier:Modifier=Modifier
     )
 {

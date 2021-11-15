@@ -30,10 +30,10 @@ class BookRepository @Inject constructor(
         return Resource.Success(response)
     }
 
-    suspend fun InsertBook(book :BookEntry, crossRef: BookTagCrossRef){
+    suspend fun InsertBook(book :BookEntry, /*crossRef: BookTagCrossRef*/){
 
         dao.insertBook(book)
-        dao.insertBookTagCrossRef(crossRef)
+       //dao.insertBookTagCrossRef(crossRef)
     }
 
     suspend fun DeleteBookTag(crossRef: BookTagCrossRef){

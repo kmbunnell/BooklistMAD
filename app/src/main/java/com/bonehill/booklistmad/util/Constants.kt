@@ -5,5 +5,5 @@ object Constants {
         "https://www.googleapis.com/"
 
     const val PAGE_SIZE = 20
-    const val DB_NAME="bookstagged_db"
+    const val DB_NAME="BooksTaggedDB"
 }

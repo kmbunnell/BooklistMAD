@@ -13,8 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DB_Module {
-
+object DataBaseModule {
     @Singleton
     @Provides
     fun provideBooksTaggedDatabase( @ApplicationContext context: Context)=
@@ -22,10 +21,11 @@ object DB_Module {
             context,
             BooksTaggedDatabase::class.java,
             Constants.DB_NAME
-
-        ).build()
+        ).createFromAsset("database/BooksTaggedDB.db")
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Singleton
     @Provides
-    fun provideBookDao(db:BooksTaggedDatabase)=db.getBookDao()
+    fun provideBookDao(db: BooksTaggedDatabase)=db.getBookDao()
 }
